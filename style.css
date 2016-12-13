@@ -46,13 +46,21 @@ body,html{
 
 
 #btnIniciar{
-    position: absolute;
-    z-index: 99999;
+    position: fixed;
+    z-index: 9999999999;
     right: 20px;
     bottom: 20px;
     cursor: pointer;
     transition: .5s;
+    height: 64px; width: 64px;
+    background: url(img/rodar.png);
 }
+#btnIniciar:hover{
+    background: url(img/rodar2.png);
+    cursor: pointer;
+    display: block;
+}
+
 
 #console{
     position: absolute;
@@ -65,6 +73,8 @@ body,html{
     color: white;
     padding: 10px;
     box-sizing: border-box!important;
+    line-height: 22px;
+    overflow-y: auto !important;
 }
 
 
@@ -78,3 +88,8 @@ body,html{
 /*    top: 60px !important; bottom: 0 !important; right: 0;*/
     z-index:1;
 }
+
+.cm-codigo { color:#9cb5ce; }
+.cm-encerraCod { color: #ce4949; }
+.cm-comentario { color: dodgerblue;}
+.cm-valor { color: yellowgreen; }

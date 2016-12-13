@@ -1,13 +1,30 @@
 var simulador;
 var instrucoes = "";
 
+Array.prototype.remove = function() {
+    var what, a = arguments, L = a.length, ax;
+    while (L && this.length) {
+        what = a[--L];
+        while ((ax = this.indexOf(what)) !== -1) {
+            this.splice(ax, 1);
+        }
+    }
+    return this;
+};
+
 var editor = CodeMirror.fromTextArea(editor, {
     lineNumbers: true,
-    theme: "material"
+    theme: "material",
+    mode: "ramses"
 });
 
 function compila() {
-    instrucoes = editor.getValue().split("\n");
+    var tmp = editor.getValue().split("\n");
+    for(var i=0;i<tmp.length;i++){
+        if(tmp[i].indexOf("/") == "0") tmp.remove(tmp[i]); //REMOVE COMENTÁRIOS
+    }
+    instrucoes = tmp;
+    console.log(tmp);
 }
 
 function inicia() {
@@ -36,3 +53,5 @@ $("#btnMenu").click(function(e){
         tmp.css("width","0px");
     }
 });
+
+

@@ -1,6 +1,7 @@
 //Botão de rodar + display PC
 
 var SIMULADOR = function() {
+    this.LIGADO = true;
     this.N = false;
     this.Z = false;
     this.REGISTRADORES = {
@@ -13,7 +14,9 @@ var SIMULADOR = function() {
     };
         
     this.proximaInstrucao = function() {
-        this.executa(instrucoes[this.REGISTRADORES.PC]);
+        while(this.LIGADO){
+            this.executa(instrucoes[this.REGISTRADORES.PC]);
+        }
     }
     
     this.executa = function(instrucao) {
@@ -23,6 +26,10 @@ var SIMULADOR = function() {
             case "ldr" :
                 this.REGISTRADORES[partes[1]] = partes[2];
                 imprime("Registrador " + partes[1].toUpperCase() + " carregou o valor " + partes[2]);
+                break;
+            case "hlt" :
+                this.LIGADO = false;
+                imprime("HLT encontrado. Processamento encerrado");
                 break;
         }
         this.REGISTRADORES.PC += 1;
