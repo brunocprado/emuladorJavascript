@@ -16,9 +16,15 @@ function inicia() {
     setInterval(function(){
         simulador.proximaInstrucao();
     },500);
+    
+    $("#console").html("");
+    $("#console").animate({"height":"200px"},500);
+    $("#console").css("display","block");
+    $("#btnIniciar").css("bottom","220px");
 }
 
 $("#btnIniciar").click(function(e){
+    if(editor.getValue() == "") { alert("Insira o código"); return; }
     inicia();
 });
 

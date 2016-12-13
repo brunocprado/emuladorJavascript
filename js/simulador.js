@@ -30,6 +30,6 @@ var SIMULADOR = function() {
 };
 
 function imprime(texto) {
-    //mostrar no display dps
+    $("#console").append(texto + "<br>");
     console.log(texto);
 }
