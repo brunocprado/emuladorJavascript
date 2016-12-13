@@ -24,8 +24,12 @@ var SIMULADOR = function() {
         var partes = inst.split(" ");
         switch(partes[0]){
             case "ldr" :
-                this.REGISTRADORES[partes[1]] = partes[2];
-                imprime("Registrador " + partes[1].toUpperCase() + " carregou o valor " + partes[2]);
+                if(partes[2].indexOf("#") == 0) {
+                    var valor = partes[2].substr(1,partes[2].length-1);
+                    this.REGISTRADORES[partes[1]] = valor;
+                    imprime("Registrador " + partes[1].toUpperCase() + " carregou o valor " + valor);
+                }
+                
                 break;
             case "hlt" :
                 this.LIGADO = false;

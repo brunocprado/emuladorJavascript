@@ -90,6 +90,7 @@ body,html{
 }
 
 .cm-codigo { color:#9cb5ce; }
+.cm-registrador { color: #db7575; }
 .cm-encerraCod { color: #ce4949; }
 .cm-comentario { color: dodgerblue;}
 .cm-valor { color: yellowgreen; }

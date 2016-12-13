@@ -12,11 +12,15 @@ Array.prototype.remove = function() {
     return this;
 };
 
+// TODO : COMENTÁRIO AUTOMATICO
+
 var editor = CodeMirror.fromTextArea(editor, {
     lineNumbers: true,
     theme: "material",
     mode: "ramses"
 });
+
+editor.focus();
 
 function compila() {
     var tmp = editor.getValue().split("\n");
@@ -54,4 +58,28 @@ $("#btnMenu").click(function(e){
     }
 });
 
-
+$("body").on('keydown', function(e) {
+    if (e.which != 13) return;
+    
+    var linhas = editor.getValue().split("\n"); 
+    var pos = editor.getCursor();
+    var texto = linhas[pos.line - 1].toLowerCase();
+    var partes = texto.split(" ");
+    var comentario = "";
+    
+    switch(partes[0]){
+        case "ldr":
+            comentario = "Registrador " + partes[1].toUpperCase() + " carrega o valor ";
+            if(partes[2].indexOf("#") == 0) { comentario += partes[2].substr(1,partes[2].length - 1);} else {
+                comentario += "contido no endereço " + partes[2];
+            }
+            break;
+        case "hlt":
+            comentario = "Encerra programa";
+            break;
+    }
+    
+    if(comentario != "") { linhas[pos.line - 1] += " // " + comentario; }
+    editor.setValue(linhas.join("\n"));
+    editor.setCursor(pos);
+});
