@@ -34,17 +34,6 @@ body,html{
 }
 
 
-#menu {
-    float:left;
-    width: 0px;
-    height: 100%;
-    box-sizing: border-box;
-    box-shadow: 0 0 10px black;
-    background: #bfe2dd;
-    transition: .6s;
-}
-
-
 #btnIniciar{
     position: fixed;
     z-index: 9999999999;
@@ -77,12 +66,44 @@ body,html{
     overflow-y: auto !important;
 }
 
+/*
+    Menu
+*/
+
+#menu {
+    float:left;
+    width: 320px;
+    height: 100%;
+    box-sizing: border-box;
+    box-shadow: 0 0 10px black;
+/*    background: #bfe2dd;*/
+    background: #cfebe7;
+    transition: .6s;
+    padding: 70px 0px;
+    text-align: center;
+    overflow: hidden !important;
+    margin-left: -320px;
+}
+#foto{  
+    display:block;
+    text-align: center;
+    padding-bottom: 10px;
+}
+#foto img{
+    border-radius: 100%;
+    box-shadow: 0 0 5px rgba(0,0,0,.5);
+}
+
+
+/*
+    Editor
+*/
 
 .CodeMirror{
     float:left;
 /*    position: absolute !important;*/
     box-sizing: border-box !important;
-    width: calc(100% - 400px);
+
     height: 100% !important;
     margin-top: 60px;
 /*    top: 60px !important; bottom: 0 !important; right: 0;*/

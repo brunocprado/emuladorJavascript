@@ -1,9 +1,12 @@
-//Botão de rodar + display PC
+//TODO : display PC
 
 var SIMULADOR = function() {
     this.LIGADO = true;
-    this.N = false;
-    this.Z = false;
+    this.FLAGS = {
+        "N" : false,
+        "Z" : false,
+        "C" : false
+    }
     this.REGISTRADORES = {
         "PC": 0,
         "a" : null,
@@ -24,13 +27,16 @@ var SIMULADOR = function() {
         var partes = inst.split(" ");
         switch(partes[0]){
             case "ldr" :
+                var valor = 0;
                 if(partes[2].indexOf("#") == 0) {
-                    var valor = partes[2].substr(1,partes[2].length-1);
-                    this.REGISTRADORES[partes[1]] = valor;
-                    imprime("Registrador " + partes[1].toUpperCase() + " carregou o valor " + valor);
+                    valor = partes[2].substr(1,partes[2].length-1);
+                } else {
+                    valor = instrucoes[partes[2]];
                 }
-                
+                this.REGISTRADORES[partes[1]] = valor;
+                imprime("Registrador " + partes[1].toUpperCase() + " carregou o valor " + valor);
                 break;
+                
             case "hlt" :
                 this.LIGADO = false;
                 imprime("HLT encontrado. Processamento encerrado");

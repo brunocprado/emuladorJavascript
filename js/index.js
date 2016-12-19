@@ -12,7 +12,9 @@ Array.prototype.remove = function() {
     return this;
 };
 
-// TODO : COMENTÁRIO AUTOMATICO
+// TODO 
+// SELETOR de HZ
+// GERAR BYTECODE
 
 var editor = CodeMirror.fromTextArea(editor, {
     lineNumbers: true,
@@ -23,17 +25,28 @@ var editor = CodeMirror.fromTextArea(editor, {
 editor.focus();
 
 function compila() {
+    var compilado = new Object();
     var tmp = editor.getValue().split("\n");
     for(var i=0;i<tmp.length;i++){
-        if(tmp[i].indexOf("/") == "0") tmp.remove(tmp[i]); //REMOVE COMENTÁRIOS
+        if(tmp[i].indexOf("/") == "0") continue;
+        if(tmp[i] == "") continue;
+        
+        var temp = tmp[i].indexOf(":");
+        if(temp > 0) {
+            var dado = tmp[i].substr(temp + 1,tmp[i].lenght).trim();
+            compilado[tmp[i].substr(0,tmp[i].indexOf(":"))] = dado;
+            continue;
+        }
+        compilado[i] = tmp[i];
     }
-    instrucoes = tmp;
-    console.log(tmp);
+    instrucoes = compilado;
+    console.log(compilado);
 }
 
 function inicia() {
     simulador = new SIMULADOR();
     compila();
+    
     setInterval(function(){
         simulador.proximaInstrucao();
     },500);
@@ -51,16 +64,16 @@ $("#btnIniciar").click(function(e){
 
 $("#btnMenu").click(function(e){
     var tmp = $("#menu");
-    if(tmp.css("width") == "0px") {
-        tmp.css("width","400px");
+    if(tmp.css("margin-left") == "-320px") {
+        tmp.css("margin-left","0px");
     } else {
-        tmp.css("width","0px");
+        tmp.css("margin-left","-320px");
     }
 });
 
 $("body").on('keydown', function(e) {
     if (e.which != 13) return;
-    
+    return;
     var linhas = editor.getValue().split("\n"); 
     var pos = editor.getCursor();
     var texto = linhas[pos.line - 1].toLowerCase();
@@ -79,7 +92,7 @@ $("body").on('keydown', function(e) {
             break;
     }
     
-    if(comentario != "") { linhas[pos.line - 1] += " // " + comentario; }
+    if(comentario != "" && texto.indexOf("//") == -1 && linhas[pos.line - 1] != "") { linhas[pos.line - 1] += " // " + comentario; }
     editor.setValue(linhas.join("\n"));
     editor.setCursor(pos);
 });
