@@ -108,10 +108,16 @@ body,html{
     margin-top: 60px;
 /*    top: 60px !important; bottom: 0 !important; right: 0;*/
     z-index:1;
+    font-size: 20px;
 }
 
 .cm-codigo { color:#9cb5ce; }
 .cm-registrador { color: #db7575; }
-.cm-encerraCod { color: #ce4949; }
+.cm-encerraCod { 
+    color: #ce4949; 
+/*    background-color: red; */
+    display: inline-block; 
+    margin-bottom: 30px;
+}
 .cm-comentario { color: dodgerblue;}
 .cm-valor { color: yellowgreen; }

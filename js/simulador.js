@@ -41,7 +41,7 @@ var SIMULADOR = function() {
             //REGISTRA    
             case "str" :
                 instrucoes[partes[2]] = this.REGISTRADORES[partes[1]];
-                imprime("Valor do registrador " + partes[1].toUpperCase() + " (" + this.REGISTRADORES[partes[1]] + ") enviada para endereço " + partes[2]);
+                imprime("Valor do registrador " + partes[1].toUpperCase() + " (" + this.REGISTRADORES[partes[1]] + ") enviado para o endereço " + partes[2]);
                 break;
                 
             //ENCERRA    

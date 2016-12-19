@@ -49,7 +49,7 @@ function inicia() {
     
     setInterval(function(){
         simulador.proximaInstrucao();
-    },500);
+    },200);
     
     $("#console").html("");
     $("#console").animate({"height":"200px"},500);
