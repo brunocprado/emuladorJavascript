@@ -12,11 +12,7 @@ Array.prototype.remove = function() {
     return this;
 };
 
-// TODO 
-// SELETOR de HZ
-// GERAR BYTECODE
-
-var editor = CodeMirror.fromTextArea(editor, {
+var editor = CodeMirror.fromTextArea(document.getElementById("editor"), {
     lineNumbers: true,
     theme: "material",
     mode: "ramses"
@@ -24,34 +20,12 @@ var editor = CodeMirror.fromTextArea(editor, {
 
 editor.focus();
 
-function compila() {
-    var compilado = new Object();
-    var tmp = editor.getValue().split("\n");
-    for(var i=0;i<tmp.length;i++){
-        if(tmp[i].indexOf("/") == "0") continue;
-        if(tmp[i] == "") continue;
-        
-        var temp = tmp[i].indexOf(":");
-        if(temp > 0) {
-            var dado = tmp[i].substr(temp + 1,tmp[i].lenght).trim();
-            compilado[tmp[i].substr(0,tmp[i].indexOf(":"))] = dado;
-            continue;
-        }
-        compilado[i] = tmp[i];
-    }
-    instrucoes = compilado;
-    console.log(compilado);
-}
-
 function inicia() {
-    simulador = new SIMULADOR();
-    compila();
+    simulador = new RAMSES();
+    simulador.compila();
+    simulador.inicia();
     
-    setInterval(function(){
-        simulador.proximaInstrucao();
-    },200);
-    
-    $("#console").html("");
+    //document.getElementById("console").innerHTML = "";
     $("#console").animate({"height":"200px"},500);
     $("#console").css("display","block");
     $("#btnIniciar").css("bottom","220px");

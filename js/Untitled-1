@@ -5,3 +5,8 @@ HLT
 //===| Endereçamento dinâmico |===//
 var1: 50
 var2: 40
+
+
+
+
+add $r1, $r2, $r3
