@@ -103,7 +103,7 @@ body,html{
     float:left;
 /*    position: absolute !important;*/
     box-sizing: border-box !important;
-
+    min-width: 200px !important;
     height: 100% !important;
     margin-top: 60px;
 /*    top: 60px !important; bottom: 0 !important; right: 0;*/
