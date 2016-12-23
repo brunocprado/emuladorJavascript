@@ -21,11 +21,12 @@ var editor = CodeMirror.fromTextArea(document.getElementById("editor"), {
 editor.focus();
 
 function inicia() {
+    document.getElementById("log").innerHTML = "";
+    
     simulador = new RAMSES();
     simulador.compila();
     simulador.inicia();
-    
-    //document.getElementById("console").innerHTML = "";
+
     $("#console").animate({"height":"200px"},500);
     $("#console").css("display","block");
     $("#btnIniciar").css("bottom","220px");

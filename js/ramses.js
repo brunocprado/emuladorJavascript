@@ -1,16 +1,16 @@
 var RAMSES = function() {
     this.LIGADO = true;
     this.FLAGS = {
-        "N" : true,
+        "N" : false,
         "Z" : false,
         "C" : false
     };
     this.REGISTRADORES = {
         "PC": 0,
-        "a" : 0,
-        "b" : 0,
-        "c" : 0,
-        "d" : 0,
+        "a" : null,
+        "b" : null,
+        "c" : null,
+        "d" : null,
         "x" : 0
     };
         
@@ -34,10 +34,11 @@ var RAMSES = function() {
     }
     
     this.inicia = function() {
-        while(this.LIGADO && this.REGISTRADORES.PC < 256){
+        while(this.LIGADO){
+            if(Number.isInteger(parseInt(this.REGISTRADORES.PC)) && this.REGISTRADORES.PC > 255) { this.LIGADO = false; return; }
             this.executa(instrucoes[this.REGISTRADORES.PC]);    
         }
-        console.log(this.REGISTRADORES);
+        console.log(this);
     }
     
     this.executa = function(instrucao) {
@@ -89,14 +90,15 @@ var RAMSES = function() {
                 
             //JUMP    
             case "jmp" :
-                this.REGISTRADORES.PC = parseInt(partes[1]) - 2;
+                this.JUMP(partes[1]);    
+                return;
                 imprime("Apontador de programa alterado para a posição " + partes[1]);
                 break; 
                 
             //JUMP CASO NEGATIVO  
             case "jn" :
                 if(this.FLAGS.N) {
-                    this.REGISTRADORES.PC = parseInt(partes[1]) - 2;
+                    this.JUMP(partes[1]);
                     imprime("Apontador de programa alterado para a posição " + partes[1]);
                     this.FLAGS.N = false;
                 }
@@ -105,7 +107,8 @@ var RAMSES = function() {
             //JUMP CASO ZERO    
             case "jz" :
                 if(this.FLAGS.Z) {
-                    this.REGISTRADORES.PC = parseInt(partes[1]) - 2;
+                    this.JUMP(partes[1]);
+                    return;
                     imprime("Apontador de programa alterado para a posição " + partes[1]);
                     this.FLAGS.N = false;
                 }
@@ -114,7 +117,8 @@ var RAMSES = function() {
             //JUMP CASO CARRY   
             case "jc" :
                 if(this.FLAGS.C) {
-                    this.REGISTRADORES.PC = parseInt(partes[1]) - 2;
+                    this.JUMP(partes[1]);    
+                    return;
                     imprime("Apontador de programa alterado para a posição " + partes[1]);
                     this.FLAGS.N = false;
                 }
@@ -144,12 +148,32 @@ var RAMSES = function() {
                 imprime("<span style='color: #ce4949;'>HLT encontrado. Processamento encerrado</span><br>");
                 break;
         }
+        
+        //====| CHECA FLAGS |====//              
+        this.FLAGS.N = (this.REGISTRADORES.a < 0 || this.REGISTRADORES.b < 0 || this.REGISTRADORES.c < 0);
+        this.FLAGS.Z = (this.REGISTRADORES.a == 0 || this.REGISTRADORES.b == 0 || this.REGISTRADORES.c == 0);
+        //TODO: VERIFICAR CARRY nas operacoes ADD,SUB,NEG e SHR
+        
+        
+        //====| MUDA DISPLAY |====//
+        $("#radioN").attr("checked",this.FLAGS.N);
+        $("#radioZ").attr("checked",this.FLAGS.Z);
+        
         this.REGISTRADORES.PC += 1;
     }
+    
+    this.JUMP = function(inst){
+        if(Number.isInteger(parseInt(inst))){
+            this.REGISTRADORES.PC = parseInt(inst) - 1;
+        } else {
+            this.REGISTRADORES.PC = inst;
+        }
+    }
+    
 };
 
 function imprime(texto) {
-    var elemento = document.getElementById("console");
+    var elemento = document.getElementById("log");
     elemento.innerHTML += texto + "<br>";  
     elemento.scrollTop = elemento.scrollHeight;
     console.log(texto);
