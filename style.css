@@ -50,6 +50,9 @@ body,html{
     display: block;
 }
 
+/* 
+    Log
+*/
 
 #console{
     position: absolute;
@@ -65,6 +68,13 @@ body,html{
     line-height: 22px;
     overflow-y: auto !important;
 }
+
+#display{
+    position: fixed;
+    right: 40px; bottom: 20px;
+}
+
+
 
 /*
     Menu

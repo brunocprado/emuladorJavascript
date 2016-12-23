@@ -1,7 +1,7 @@
 var RAMSES = function() {
     this.LIGADO = true;
     this.FLAGS = {
-        "N" : false,
+        "N" : true,
         "Z" : false,
         "C" : false
     };
@@ -87,9 +87,48 @@ var RAMSES = function() {
                 imprime("Valor do registrador " + partes[1].toUpperCase() + " -= " + partes[2] + " (" + this.REGISTRADORES[partes[1]] + ")");
                 break;
                 
+            //JUMP    
+            case "jmp" :
+                this.REGISTRADORES.PC = parseInt(partes[1]) - 2;
+                imprime("Apontador de programa alterado para a posição " + partes[1]);
+                break; 
+                
+            //JUMP CASO NEGATIVO  
+            case "jn" :
+                if(this.FLAGS.N) {
+                    this.REGISTRADORES.PC = parseInt(partes[1]) - 2;
+                    imprime("Apontador de programa alterado para a posição " + partes[1]);
+                    this.FLAGS.N = false;
+                }
+                break;  
+                
+            //JUMP CASO ZERO    
+            case "jz" :
+                if(this.FLAGS.Z) {
+                    this.REGISTRADORES.PC = parseInt(partes[1]) - 2;
+                    imprime("Apontador de programa alterado para a posição " + partes[1]);
+                    this.FLAGS.N = false;
+                }
+                break;  
+            
+            //JUMP CASO CARRY   
+            case "jc" :
+                if(this.FLAGS.C) {
+                    this.REGISTRADORES.PC = parseInt(partes[1]) - 2;
+                    imprime("Apontador de programa alterado para a posição " + partes[1]);
+                    this.FLAGS.N = false;
+                }
+                break;  
+                
+            //NOT    
+            case "not" :
+                this.REGISTRADORES[partes[1]] = !this.REGISTRADORES[partes[1]];
+                imprime("Sinal do registrador " + partes[1].toUpperCase() + " invertido (" + this.REGISTRADORES[partes[1]] + ")");
+                break;       
+                
             //NEGATIVO    
             case "neg" :
-                this.REGISTRADORES[partes[1]] = 0 - this.REGISTRADORES[partes[1]];
+                this.REGISTRADORES[partes[1]] *= -1;
                 imprime("Sinal do registrador " + partes[1].toUpperCase() + " invertido (" + this.REGISTRADORES[partes[1]] + ")");
                 break;    
                 
